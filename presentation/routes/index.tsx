@@ -3,7 +3,7 @@ import AuthStack from "./AuthStack";
 import DrawerRoutes from "./drawer.routes";
 
 export default function Routes(){
-    const auth = true
+    const auth = false
     return(
         <NavigationContainer>
             { auth ? <DrawerRoutes /> : <AuthStack /> }

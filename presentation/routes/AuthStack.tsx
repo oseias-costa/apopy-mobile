@@ -1,7 +1,5 @@
-import { View } from "react-native"
+import Login from "../screens/acess/Login"
 
 export default function AuthStack(){
-    return(
-        <View>AuthStack</View>
-    )
+    return <Login />
 }
