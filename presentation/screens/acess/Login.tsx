@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button, NativeSyntheticEvent, StyleSheet, Text, TextInput, TextInputChangeEventData, View } from "react-native";
 import { loginUseCase } from "../../../application/login.usecase";
 
-export default function Login(){
+export default function Login({ navigation }){
     const [ loginState, setLoginState ] = useState({
         email: '', password: ''
     })
@@ -36,6 +36,7 @@ export default function Login(){
                 }
             />
             <Button onPress={handleLogin} title="Entrar" />
+            <Button onPress={() => navigation.navigate('Register')} title="Registar" />
         </View>
     )
 }
