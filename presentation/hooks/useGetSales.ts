@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSaleUseCase } from "../../application/sale.usecase";
 import { fetchSales } from "../redux/slice/saleSlice";
-import { RootState } from "../redux/store";
+import { RootState } from "../redux/stores";
 
 export function useGetSales() {
   const dispatch = useDispatch();
@@ -14,7 +14,9 @@ export function useGetSales() {
       getSaleUseCase().then((res) => { 
         dispatch(fetchSales(res.data.data.sales))
         setLoading(false)
-      });
+      }).catch((err) => {
+        console.log(err)
+      })
     }
     setLoading(false)
   }, []);

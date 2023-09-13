@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import Dashboard from "../screens/Dashboard";
+import Dashboard from "../screens/Dashboard/Dashboard";
 import Settings from "../screens/Settings";
 
 const Tab = createBottomTabNavigator()
