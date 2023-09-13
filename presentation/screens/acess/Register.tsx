@@ -1,16 +1,25 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Image } from "expo-image";
 import { useState } from "react";
-import { Button, NativeSyntheticEvent, StyleSheet, Text, TextInput, TextInputChangeEventData, View } from "react-native";
+import { Dimensions, NativeSyntheticEvent, StyleSheet, TextInputChangeEventData, ScrollView } from "react-native";
 import { useDispatch } from "react-redux";
 import { registerUseCase } from "../../../application/register.usecase";
 import { RegisterUser } from "../../../domain/user";
+import CustomButton from "../../components/CustomButton/CustomButton";
+import Description from "../../components/Description";
+import Input from "../../components/Input/Input";
+import LinkAcess from "../../components/LinkAcess";
+import Title from "../../components/Title";
 import { fetchUser } from "../../redux/slice/userSlice";
 
-export default function Register(){
+export default function Register({navigation}: {navigation: any}){
     const dispatch = useDispatch()
     const [register, setRegister] = useState<RegisterUser>({
         name: "", email: "", password: "", phone: "",
       });
+      const screenDimensions = {
+        width: Dimensions.get('screen').width
+    }
 
       async function handleRegister() {
         const registerUser = await registerUseCase({
@@ -34,51 +43,61 @@ export default function Register(){
         }
 
     return(
-        <View>
-            <Text>Registrar</Text>
-            <TextInput 
+        <ScrollView style={styles.container}>
+           <Image 
+                source={require('../../../assets/apopy-mobile-register.png')} 
+                contentFit="cover"
+                style={{
+                    width: screenDimensions.width, 
+                    height: screenDimensions.width / 1.32
+                }}
+            />
+            <Title>Registrar-se</Title>
+            <Description>Apopy é um controle de estoque para lojas de estofados. Organize seu estoque com uma ferramente simples.</Description>
+            <Input 
                 value={register.name}
                 placeholder='Nome'
-                style={styles.input}
                 onChange={ (e: NativeSyntheticEvent<TextInputChangeEventData>) => 
                     setRegister({ ...register, name: e.nativeEvent.text })
                 }
             />
-            <TextInput 
+            <Input 
                 value={register.email}
                 placeholder='Email'
                 keyboardType='email-address'
-                style={styles.input}
                 onChange={ (e: NativeSyntheticEvent<TextInputChangeEventData>) => 
                     setRegister({ ...register, email: e.nativeEvent.text })
                 }
             />
-            <TextInput 
+            <Input 
                 value={register.phone}
                 placeholder='Telefone'
-                style={styles.input}
                 onChange={ (e: NativeSyntheticEvent<TextInputChangeEventData>) => 
                     setRegister({ ...register, password: e.nativeEvent.text })
                 }
             />
-            <TextInput 
+            <Input 
                 value={register.password}
-                placeholder='password'
-                style={styles.input}
+                secureTextEntry={true}
+                placeholder='Senha'
                 onChange={ (e: NativeSyntheticEvent<TextInputChangeEventData>) => 
                     setRegister({ ...register, password: e.nativeEvent.text })
                 }
             />
-            <Button onPress={handleRegister} title='Registrar' />
-        </View>
+            <CustomButton onPress={handleRegister} text='Registrar' disabled={false} />
+            <LinkAcess
+                question="Já possue uma conta?"  
+                linkText="Login"
+                path="Login"
+                onPress={() => navigation.navigate('Login')}
+            />
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
-    input: {
-      height: 40,
-      margin: 12,
-      borderWidth: 1,
-      padding: 10,
-    },
-  });
+  container: {
+      backgroundColor: '#fff',
+      flex: 1
+  }
+});

@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
-import { Button, Dimensions, NativeSyntheticEvent, StyleSheet, Text, TextInput, TextInputChangeEventData, View } from "react-native";
+import { Dimensions, NativeSyntheticEvent, StyleSheet, ScrollView, TextInputChangeEventData } from "react-native";
 import { useDispatch } from "react-redux";
 import { loginUseCase } from "../../../application/login.usecase";
 import CustomButton from "../../components/CustomButton/CustomButton";
@@ -37,7 +37,7 @@ export default function Login({ navigation }: {navigation: any}){
     }
 
     return(
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <Image 
                 source={require('../../../assets/apopy-mobile-register.png')} 
                 contentFit="cover"
@@ -71,7 +71,7 @@ export default function Login({ navigation }: {navigation: any}){
                 path="Register"
                 onPress={() => navigation.navigate('Register')}
             />
-        </View>
+        </ScrollView>
     )
 }
 
@@ -79,14 +79,6 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         flex: 1
-    },
-    input: {
-      borderWidth: 0,
-      height: 40,
-      marginHorizontal: 20,
-      marginBottom: 10,
-      padding: 10,
-      backgroundColor: '#F8F8F8'
-    },
+    }
   });
   

@@ -22,6 +22,14 @@ export default function StackRoutes(){
             <Stack.Screen
                 name='Register'
                 component={Register}
+                options={{
+                    headerStyle: {
+                        backgroundColor: '#012E40',
+                    },
+                    headerShown: false,
+                    statusBarColor: '#012E40',
+                    statusBarStyle: "light"
+                }}
             />
         </Stack.Navigator>
     )
