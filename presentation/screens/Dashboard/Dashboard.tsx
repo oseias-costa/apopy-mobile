@@ -1,13 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDashboardUseCase } from '../../../application/dashboard.usecase';
+import Title from '../../components/Title';
 import { useGetSales } from '../../hooks/useGetSales';
 import { fetchDashboardData } from '../../redux/slice/dashboardSlice';
 import { fetchUser, initialUserState } from '../../redux/slice/userSlice';
 import { RootState } from '../../redux/stores';
 import { salesMonthChartData } from './components/dashboard-utils';
+import DashboardChart from './components/DashboardChart';
+import DashboardNumbers from './components/DashboardNumbers';
+import LastSales from './components/LastSales';
+import WelcomeMessage from './components/WelcomeMessage';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -27,30 +32,28 @@ export default function Dashboard() {
   }, []);
   
   return (
-    <View style={styles.container}>
-      <Text>Dashboard</Text>
-      <View>
-        <Text>Produtos</Text>
-        <Text>{dashboardData.products}</Text>
-      </View>
-      <View>
-        <Text>Total Produtos</Text>
-        <Text>{dashboardData.totalItems}</Text>
-      </View>
-      <View>
-        <Text>Total Itens</Text>
-        <Text>{dashboardData.totalValue}</Text>
-      </View>
+    <ScrollView style={styles.container}>
+      <Title>Dashboard</Title>
+      <WelcomeMessage />
+      <DashboardNumbers 
+        description='Total em Estoque'
+        number={dashboardData.totalValue}
+        linkDescription='ver estoque'
+      />
+      <DashboardNumbers 
+        description='Vendas Setembro'
+        number={dashboardData.products}
+        linkDescription='ver vendas'
+      />
+      <DashboardChart />
+      <LastSales />
       <Button onPress={clearStorage} title='logout' />
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
