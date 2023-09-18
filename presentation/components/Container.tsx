@@ -18,7 +18,6 @@ export default function Container({ children }:{ children: ReactNode }){
 const style = StyleSheet.create({
     container: {
         marginHorizontal: 20,
-        minHeight: 100,
         shadowColor: "#a9a5a5",
         padding: 15,
         shadowRadius: 1.51,
