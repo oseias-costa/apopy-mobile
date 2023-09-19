@@ -4,13 +4,14 @@ import { useFontRaleway } from "../../hooks/useFontRaleway";
 
 interface InputProps{ 
     value: string;
-    placeholder: string;
+    placeholder?: string;
     keyboardType?: KeyboardTypeOptions | undefined;
-    onChange: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void | undefined;
-    secureTextEntry?: boolean
+    onChange?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void | undefined;
+    secureTextEntry?: boolean,
+    editable?: boolean
 }
 
-export default function Input({value, placeholder, keyboardType, onChange, secureTextEntry}: InputProps){
+export default function Input({ value, placeholder, keyboardType, onChange, secureTextEntry, editable}: InputProps){
 
     return  <TextInput 
                 style={styles.input} 
@@ -20,6 +21,7 @@ export default function Input({value, placeholder, keyboardType, onChange, secur
                 keyboardType={keyboardType}
                 placeholderTextColor="#C0B4AD"
                 secureTextEntry={secureTextEntry}
+                editable={editable}
             />
 }
 

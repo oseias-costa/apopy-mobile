@@ -4,7 +4,7 @@ import { useFonts, Raleway_700Bold } from '@expo-google-fonts/raleway'
 interface CustomButton {
     text: string;
     onPress: (event: GestureResponderEvent) => void,
-    disabled: boolean
+    disabled?: boolean
 }
 
 export default function CustomButton({text, onPress, disabled} : CustomButton){

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Suplier } from "../../../domain/entities/suplier";
+import { Suplier } from "../../../domain/suplier"; 
 
 interface SuplierState {
   supliers: Suplier[];

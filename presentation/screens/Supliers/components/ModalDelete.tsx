@@ -1,35 +1,75 @@
-import { Button, GestureResponderEvent, StyleSheet, View } from "react-native";
-import { Modal, Text } from "react-native";
+import { SetStateAction } from "react";
+import { GestureResponderEvent, StyleSheet, Text, View } from "react-native";
+import { Modal } from "react-native";
+import { useDispatch } from "react-redux";
+import { deleteSuplierUseCase } from "../../../../application/suplier.usecase";
+import CustomButton from "../../../components/CustomButton/CustomButton";
+import Input from "../../../components/Input/Input";
+import { removeSuplier } from "../../../redux/slice/suplierSlice";
+import { SuplierState } from "../Supliers";
 
 export default function ModalDelete({
   visible,
-  onPress,
-  cancelAction,
+  value,
+  suplierState,
+  setSuplierState
 }: {
   visible: boolean;
-  onPress: (event: GestureResponderEvent) => void;
-  cancelAction: (event: GestureResponderEvent) => void;
+  value: string,
+  suplierState: SuplierState,
+  setSuplierState: React.Dispatch<SetStateAction<SuplierState>>
 }) {
+  const dispatch = useDispatch()
+
+  const deleteSuplierItem = async () => {
+    loadingAction(true);
+    const deleteSup = await deleteSuplierUseCase(suplierState._id);
+
+    if (deleteSup.data.data) {
+      dispatch(removeSuplier(deleteSup.data.data.deleteSuplier));
+      loadingAction(false);
+      setSuplierState({ ...suplierState, delete: false })
+    }
+  };
+
+  const loadingAction = (isLoading: boolean) =>
+  isLoading
+    ? setSuplierState({ ...suplierState, loading: true })
+    : setSuplierState({ ...suplierState, loading: false });
+
   return (
-    <View style={styles.container}>
-      <Modal
+    <Modal
         animationType="fade"
         visible={visible}
-        style={{ backgroundColor: "black" }}
         transparent={true}
       >
-        <View style={{ height: 200, width: 200, backgroundColor: "red" }}>
-          <Text>Teste</Text>
-          <Button onPress={cancelAction} title="Cancelar" />
-          <Button onPress={onPress} title="Excluir" />
+    <View style={styles.container}>
+        <View style={styles.modalContainer}>
+          <Text>Deseja realmente excluir?</Text>
+          <Input value={value} editable={false} />
+          <CustomButton onPress={deleteSuplierItem} text="Excluir fornecedor" />
+          <CustomButton onPress={() => setSuplierState({ ...suplierState, delete: false })} text="Cancelar" />
         </View>
-      </Modal>
     </View>
+      </Modal>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "rgba(0,0,0, 0.5)",
+    width: '100%',
+    height: "100%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20
   },
+  modalContainer: { 
+    width: '100%',
+    backgroundColor: "white",
+    borderRadius: 10,
+    paddingTop: 20,
+    paddingBottom: 20
+  }
+  
 });

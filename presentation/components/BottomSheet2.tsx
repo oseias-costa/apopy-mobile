@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useMemo } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 
-const ButtonSheet = () => {
+const ButtonSheet2 = () => {
   // hooks
   const sheetRef = useRef<BottomSheet>(null);
 

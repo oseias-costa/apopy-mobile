@@ -3,7 +3,7 @@ import { Dimensions, useWindowDimensions } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-native-reanimated";
 
-const BottomSheet = forwardRef(({activeHeight}: {activeHeight: number}, ref) => {
+const BottomSheetFail = forwardRef(({activeHeight}: {activeHeight: number}, ref) => {
     const { height } = Dimensions.get('window')
     // const topAnimation = useSharedValue(height)
     // const animationStyle = useAnimatedStyle(() => {
