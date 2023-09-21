@@ -24,13 +24,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     text: {
-        fontSize: 22,
+        fontSize: 18,
         fontFamily: 'Raleway_600SemiBold',
         color: '#4C4A51'
     },
     updateText: {
         color: '#049FB1',
         fontFamily: 'Raleway_600SemiBold',
-        fontSize: 18,
+        fontSize: 14,
     }
 })

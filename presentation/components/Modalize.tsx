@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FCFCFC",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
+        paddingBottom: 20
       },
       lineContainer: {
         marginVertical: 10,

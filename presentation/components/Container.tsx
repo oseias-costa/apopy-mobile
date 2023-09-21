@@ -6,11 +6,11 @@ export default function Container({ children }:{ children: ReactNode }){
     const shadow = {
         shadowOffset: {
             width: 1,
-            height: 5,
+            height: 2,
         },
         shadowOpacity:  0.2,
         shadowRadius: 3,
-        elevation: 3.2
+        elevation: 1.2
     }
     return <View style={[style.container, shadow]}>{children}</View>
 }

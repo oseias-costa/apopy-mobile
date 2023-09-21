@@ -16,7 +16,7 @@ export default function ToManageContent({
 
 const styles = StyleSheet.create({
     textContent: {
-        fontSize: 28,
+        fontSize: 22,
         fontFamily: 'Raleway_600SemiBold',
         color: '#4C4A51',
         paddingLeft: 5

@@ -1,4 +1,4 @@
-import { SetStateAction } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 import { useDispatch } from "react-redux";
 import { createSuplierUseCase } from "../../../../application/suplier.usecase";
@@ -7,7 +7,6 @@ import Input from "../../../components/Input/Input";
 import Modalize from "../../../components/Modalize";
 import { createSuplier } from "../../../redux/slice/suplierSlice";
 import { SuplierState } from "../Supliers";
-
 
 interface UpdateAndDeleteButtonSheetProps {
     propsSuplier : {
@@ -20,6 +19,15 @@ interface UpdateAndDeleteButtonSheetProps {
 
 export default function CreateSuplier({propsSuplier}: UpdateAndDeleteButtonSheetProps){
     const dispatch = useDispatch()
+    const [ disbledButton, setDisabledButton ] = useState(true)
+
+    useEffect(() => {
+        if(propsSuplier.suplierState.name.length >= 3 && !propsSuplier.suplierState.loading){
+            setDisabledButton(false)
+        } else {
+            setDisabledButton(true)
+        }
+    },[propsSuplier])
 
     const createSuplierItem = async () => {
         loadingAction(true);
@@ -31,8 +39,6 @@ export default function CreateSuplier({propsSuplier}: UpdateAndDeleteButtonSheet
           propsSuplier.setSuplierState({...propsSuplier.suplierState, create: false})
         }
       };
-
-      const isValidWord = () => propsSuplier.suplierState.name.length <= 3 ? true : false
 
       const loadingAction = (isLoading: boolean) =>
       isLoading
@@ -53,7 +59,8 @@ export default function CreateSuplier({propsSuplier}: UpdateAndDeleteButtonSheet
             />
             <CustomButton 
                 text='Adicionar Fornecedor' 
-                disabled={isValidWord()} 
+                loading={propsSuplier.suplierState.loading} 
+                disabled={disbledButton}
                 onPress={createSuplierItem} 
             />
         </Modalize>

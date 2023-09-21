@@ -4,10 +4,11 @@ import { useFonts, Raleway_700Bold } from '@expo-google-fonts/raleway'
 interface CustomButton {
     text: string;
     onPress: (event: GestureResponderEvent) => void,
-    disabled?: boolean
+    disabled?: boolean,
+    loading?: boolean
 }
 
-export default function CustomButton({text, onPress, disabled} : CustomButton){
+export default function CustomButton({text, onPress, disabled, loading} : CustomButton){
     const [fontsLoaded] = useFonts({
         Raleway_700Bold
       });
@@ -18,22 +19,21 @@ export default function CustomButton({text, onPress, disabled} : CustomButton){
 
       const colorStyle = {
         backgroundColor: disabled ? "#828282" : '#049FB1',
-        paddingTop: disabled ? 11 : 16,
-        paddingBottom: disabled ? 11 : 16,
+        borderColor:  disabled ? "#828282" : '#049FB1'
       }
 
     return(
         <TouchableOpacity 
             onPress={onPress} 
-            style={[styles.button]} 
+            style={[styles.button, colorStyle]} 
             disabled={disabled}
         >
             <Text 
-                style={[styles.textButton, colorStyle]} 
+                style={styles.textButton} 
                 disabled={false}
             >
-                { disabled 
-                    ? <ActivityIndicator size="large" color="#fff" /> 
+                { loading 
+                    ? <ActivityIndicator size="small" color="#fff" /> 
                     : text
                 }
             </Text>
@@ -45,13 +45,15 @@ const styles = StyleSheet.create({
     textButton: {
         fontFamily: 'Raleway_700Bold', 
         color: '#fff',
-        fontSize: 18,
+        fontSize: 16,
         textAlign: 'center',
-        borderRadius: 15,
     },
     button: {
         marginBottom: 5,
-        height: 60,
         marginHorizontal: 20,
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingTop: 10,
+        paddingBottom: 10
     }
 })

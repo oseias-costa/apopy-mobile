@@ -1,10 +1,12 @@
 import { SetStateAction } from "react";
-import { GestureResponderEvent, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Modal } from "react-native";
 import { useDispatch } from "react-redux";
 import { deleteSuplierUseCase } from "../../../../application/suplier.usecase";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import Input from "../../../components/Input/Input";
+import SecondaryButton from "../../../components/SecondaryButton";
+import TitleModal from "../../../components/TitleModal";
 import { removeSuplier } from "../../../redux/slice/suplierSlice";
 import { SuplierState } from "../Supliers";
 
@@ -45,10 +47,15 @@ export default function ModalDelete({
       >
     <View style={styles.container}>
         <View style={styles.modalContainer}>
-          <Text>Deseja realmente excluir?</Text>
+          <TitleModal>Deseja realmente excluir o fornecedor?</TitleModal>
           <Input value={value} editable={false} />
-          <CustomButton onPress={deleteSuplierItem} text="Excluir fornecedor" />
-          <CustomButton onPress={() => setSuplierState({ ...suplierState, delete: false })} text="Cancelar" />
+          <CustomButton 
+            onPress={deleteSuplierItem} 
+            text="Excluir fornecedor" 
+            disabled={suplierState.loading}
+            loading={suplierState.loading}
+          />
+          <SecondaryButton type='cancel' onPress={() => setSuplierState({ ...suplierState, delete: false })} text="Cancelar" />
         </View>
     </View>
       </Modal>

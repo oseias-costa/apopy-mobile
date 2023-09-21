@@ -1,11 +1,13 @@
-import { SetStateAction } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateSuplierUseCase } from "../../../../application/suplier.usecase";
 import CustomButton from "../../../components/CustomButton/CustomButton";
 import Input from "../../../components/Input/Input";
 import Modalize from "../../../components/Modalize";
+import SecondaryButton from "../../../components/SecondaryButton";
 import { updateSuplier } from "../../../redux/slice/suplierSlice";
+import { RootState } from "../../../redux/stores";
 import { SuplierState } from "../Supliers";
 
 export interface PropsSuplier {
@@ -18,8 +20,22 @@ export interface PropsSuplier {
 }
 
 export default function UpdateAndDeleteButtonSheet({ propsSuplier }: PropsSuplier){
+  const dispatch = useDispatch();
+  const verifyIsEqual = useSelector((state: RootState) => state.suplier.supliers)
+    .filter(suplier => suplier._id === propsSuplier.suplierState._id)
+  const [ disableButton, setDisableButton ] = useState(true)
 
-    const dispatch = useDispatch();
+    useEffect(()=> {
+        if(propsSuplier.suplierState.name === verifyIsEqual[0]?.name 
+          || propsSuplier.suplierState.name.length < 3
+          || propsSuplier.suplierState.loading
+        ){
+        setDisableButton(true)
+      } else {
+        setDisableButton(false)
+      }
+    },[propsSuplier.suplierState])
+  
     const updateSuplierItem = async () => {
         loadingAction(true);
         const update = await updateSuplierUseCase(
@@ -33,6 +49,7 @@ export default function UpdateAndDeleteButtonSheet({ propsSuplier }: PropsSuplie
           loadingAction(false);
         }
       };
+
 
       const loadingAction = (isLoading: boolean) =>
       isLoading
@@ -52,13 +69,14 @@ export default function UpdateAndDeleteButtonSheet({ propsSuplier }: PropsSuplie
             placeholder="Digite um fornecedor"
           />
           <CustomButton
-            text="Editar"
-            disabled={propsSuplier.suplierState.loading}
+            text="Editar Fornecedor"
+            disabled={disableButton}
+            loading={propsSuplier.suplierState.loading}
             onPress={updateSuplierItem}
           />
-          <CustomButton
+          <SecondaryButton
+            type="delete"
             text="Excluir"
-            disabled={false}
             onPress={() => {
                 propsSuplier.toggleBottomNavigationView();
                 propsSuplier.setSuplierState({ ...propsSuplier.suplierState, delete: true });

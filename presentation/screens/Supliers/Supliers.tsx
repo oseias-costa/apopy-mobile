@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import Title from "../../components/Title";
 import { useGetSuplier } from "../../hooks/useGetSupliers";
 import SuplierItem from "./components/SuplierItem";
-import {
-  deleteSuplierUseCase,
-} from "../../../application/suplier.usecase";
 import { useDispatch } from "react-redux";
-import {
-  removeSuplier,
-} from "../../redux/slice/suplierSlice";
 import ModalDelete from "./components/ModalDelete";
 import AddButton from "../../components/AddButton";
 import UpdateAndDeleteButtonSheet from "./components/UpdateAndDeleteButtonSheet";
@@ -19,8 +13,8 @@ export interface SuplierState {
   name: string,
   _id: string,
   loading: boolean,
-  delete: boolean,
-  create: boolean,
+  create: boolean, 
+  delete: boolean 
 }
 
 export default function Supliers() {
@@ -28,11 +22,7 @@ export default function Supliers() {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const [suplierState, setSuplierState] = useState<SuplierState>({
-    name: "",
-    _id: "",
-    loading: false,
-    delete: false,
-    create: false
+    name: "", _id: "", loading: false, delete: false, create: false
   });
 
   const listSupliers = supliers.map((suplier) => (
@@ -59,7 +49,7 @@ export default function Supliers() {
 
   return (
     <ScrollView style={styles.container}>
-      <Title>Supliers</Title>
+      <Title>Fornecedores</Title>
       <View>{listSupliers}</View>
       <UpdateAndDeleteButtonSheet propsSuplier={propsSuplier} />
       <CreateSuplier propsSuplier={propsSuplier} />
