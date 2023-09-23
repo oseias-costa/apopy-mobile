@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { CategoryInterface } from "../../../domain/category";
 import AddButton from "../../components/AddButton";
 import Title from "../../components/Title";

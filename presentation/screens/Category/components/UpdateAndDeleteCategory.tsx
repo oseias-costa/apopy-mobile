@@ -21,8 +21,9 @@ export interface PropsCategory {
 
 export default function UpdateAndDeleteCategory({ propsCategory }: PropsCategory){
   const dispatch = useDispatch();
-  const verifyIsEqual = useSelector((state: RootState) => state.suplier.supliers)
-    .filter(suplier => suplier._id === propsCategory.categoryState._id)
+  const supliers = useSelector((state: RootState) => state.suplier.supliers)
+    
+  const verifyIsEqual = supliers.filter(suplier => suplier._id === propsCategory.categoryState._id)
   const [ disableButton, setDisableButton ] = useState(true)
 
     useEffect(()=> {

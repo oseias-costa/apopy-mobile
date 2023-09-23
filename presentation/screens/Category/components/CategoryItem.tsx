@@ -4,6 +4,7 @@ import { GestureResponderEvent, TouchableOpacity, Text, StyleSheet } from "react
 import { CategoryInterface } from "../../../../domain/category";
 import Container from "../../../components/Container";
 import CreateSubcategory from "./CreateSubcategory";
+import DeleteSubcategory from "./DeleteSubcategory";
 import Subcategory from "./Subcategory";
 import UpdateAndDeleteSubcategory from "./UpdateAndDeleteSubcategory";
 
@@ -52,6 +53,10 @@ export default function CategoryItem({item, onPress}: ListOneItemProps){
             <CreateSubcategory 
                 setSubcategoryState={setSubcategoryState}  
                 subcategoryState={subcategoryState}
+            />
+            <DeleteSubcategory 
+                setSubcategory={setSubcategoryState}
+                subcategory={subcategoryState}
             />
         </Container>
     )

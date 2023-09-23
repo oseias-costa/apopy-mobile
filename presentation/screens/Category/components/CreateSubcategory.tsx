@@ -9,11 +9,8 @@ import { UpdateAndDeleteSubcategoryProps } from "./UpdateAndDeleteSubcategory";
 
 export default function CreateSubcategory({ subcategoryState, setSubcategoryState }: UpdateAndDeleteSubcategoryProps){
     const dispatch = useDispatch()
-    const categoryName = useSelector((state: RootState) => 
-    state.category.categories.filter(item => 
-        item._id === subcategoryState.categoryId))[0]
-
-        console.log(categoryName)
+    const categories = useSelector((state: RootState) =>  state.category.categories)
+    const categoryName = categories.filter(item => item._id === subcategoryState.categoryId)[0]
 
     const handleCreateSubcategory = async () => {
         setSubcategoryState({ ...subcategoryState, loading: true, disable: true})
